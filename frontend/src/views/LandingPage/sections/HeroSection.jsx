@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-white lg:px-0 py-10 lg:py-11 overflow-hidden" id="hero">
+    <section className="relative bg-white mt-5 lg:px-0 py-14 overflow-hidden" id="hero">
       {/* Bintang twinkle */}
       <div className="absolute top-4 sm:top-0 ml-32 sm:ml-24; text-skpink text-3xl sm:text-4xl lg:text-6xl animate-twinkle">✦</div>
       <div className="absolute bottom-[300px] sm:bottom-[300px] left-1/2 transform -translate-x-1/2 text-skpink text-2xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
