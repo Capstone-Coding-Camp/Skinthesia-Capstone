@@ -1,4 +1,3 @@
-// src/components/BestSellers.jsx
 import { motion } from "framer-motion";
 
 const bestSellers = [
@@ -31,6 +30,7 @@ const bestSellers = [
 const BestSellers = () => {
   return (
     <motion.section
+      id="best-sellers"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -40,7 +40,7 @@ const BestSellers = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:px-16 lg:px-32 font-bold font-sans text-center mb-[40px]"
+        className="text-4xl md:px-16 lg:px-32 font-bold font-sans text-center mb-[40px]"
       >
         Best Sellers
       </motion.h2>
@@ -71,9 +71,13 @@ const BestSellers = () => {
       {/* Garis dan bintang */}
       <div className="relative mt-24">
         <div className="h-[2px] bg-skpink w-full" />
-        <div className="absolute right-20 -top-5 text-skpink text-3xl sm:text-4xl lg:text-4xl animate-twinkle">
+        <motion.div
+          className="absolute right-20 -top-5 text-skpink text-3xl sm:text-4xl lg:text-4xl"
+          animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
           ✦
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

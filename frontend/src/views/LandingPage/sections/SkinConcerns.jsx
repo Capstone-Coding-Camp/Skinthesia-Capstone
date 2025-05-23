@@ -35,7 +35,7 @@ const skinConcerns = [
   },
 ];
 
-const SkinCarousel = () => {
+const SkinConcerns = () => {
   const [index, setIndex] = useState(0);
   const visibleCards = 4;
 
@@ -58,7 +58,7 @@ const SkinCarousel = () => {
       transition={{ duration: 0.6 }}
       className="py-12 mb-12 md:px-16 lg:px-64"
     >
-      <h2 className="text-3xl font-bold font-sans text-center mb-12">
+      <h2 className="text-4xl font-bold font-sans text-center mb-12">
         Top Picks for Your Skin Concerns
       </h2>
       <div className="relative">
@@ -99,7 +99,7 @@ const SkinCarousel = () => {
                   <p className="text-sm mb-5 text-left">{item.desc}</p>
                   <a
                     href="#"
-                    className="text-sky-600 text-sm mt-1 inline-block text-left w-full"
+                    className="text-sky-600 text-sm mt-1 inline-block text-left w-full hover:font-bold"
                   >
                     Next…
                   </a>
@@ -121,4 +121,4 @@ const SkinCarousel = () => {
   );
 };
 
-export default SkinCarousel;
+export default SkinConcerns;
