@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-white lg:px-0 py-10 lg:py-16 overflow-hidden" id="hero">
+    <section className="relative bg-white lg:px-0 py-10 lg:py-11 overflow-hidden" id="hero">
       {/* Bintang twinkle */}
-      <div className="absolute top-4 sm:top-0 left-24 sm:left-24 text-skpink text-3xl sm:text-4xl lg:text-6xl animate-twinkle">✦</div>
+      <div className="absolute top-4 sm:top-0 ml-32 sm:ml-24; text-skpink text-3xl sm:text-4xl lg:text-6xl animate-twinkle">✦</div>
       <div className="absolute bottom-[300px] sm:bottom-[300px] left-1/2 transform -translate-x-1/2 text-skpink text-2xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
       <div className="absolute bottom-[400px] sm:bottom-[400px] left-[55%] transform -translate-x-1/2 text-skpink text-xl sm:text-3xl lg:text-4xl animate-twinkle delay-[400ms]">✦</div>
 
@@ -71,7 +71,7 @@ export default function HeroSection() {
               }}
             />
             <img
-              src="/hero-image.png"
+              src="/images/image-hero-section-full.png"
               alt="Hero Illustration"
               className="w-full h-[400px] sm:h-[480px] md:h-[550px] rounded-t-full object-cover scale-100 hover:scale-105 transition-transform duration-700 relative"
             />
@@ -80,7 +80,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scrolling Banner */}
-      <div className="w-full bg-pink text-white py-5 sm:py-5 overflow-hidden mt-24 md:mt-24">
+      <div className="w-full bg-pink text-white sm:py-7 overflow-hidden mt-24 md:mt-24">
         <div className="whitespace-nowrap flex animate-marquee">
           {Array(10).fill(0).map((_, i) => (
             <span key={i} className="font-serif mx-3 text-base sm:text-lg md:text-xl flex items-center gap-4">
