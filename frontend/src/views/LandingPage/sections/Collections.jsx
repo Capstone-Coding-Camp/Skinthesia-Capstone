@@ -1,40 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion'; // ✅ Import framer-motion
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const collections = [
-  {
-    title: 'Morning Routine Essentials',
-    description: 'Start your day with a refreshing and simple routine. Here are the day skincare steps you can follow to keep your skin healthy and protected throughout the day.',
-    image: '/images/morning-routine.png',
-  },
-  {
-    title: 'Night Care Recovery',
-    description: 'Nighttime is the best time for skin regeneration. This series helps cleanse the remaining dirt and nourish the skin optimally while sleeping.',
-    image: '/images/night-routine.png',
-  },
-  {
-    title: 'Acne Defense Kit',
-    description: 'Specifically designed for acne-prone or acne-prone skin, this collection helps reduce inflammation and prevent new breakouts without drying out the skin.',
-    image: '/images/acne-routine.png',
-  },
-];
-
-export default function Collections() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? collections.length - 2 : prev - 1
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev >= collections.length - 2 ? 0 : prev + 1
-    );
-  };
-
+export default function CollectionsView({ collections, currentIndex, onPrev, onNext }) {
   return (
     <section className="py-12 bg-white">
       <h2 className="text-4xl font-bold mb-[60px] text-center">Collections</h2>
@@ -51,7 +18,7 @@ export default function Collections() {
             <motion.div
               key={idx}
               className="w-1/2 px-8 py-8 flex items-center gap-4 bg-white border border-pink rounded-xl shadow-sm"
-              whileHover={{ scale: 1.03 }} // ✅ Zoom saat hover
+              whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.2 }}
@@ -65,7 +32,9 @@ export default function Collections() {
                 <h3 className="font-bold text-lg mb-5">{item.title}</h3>
                 <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
               </div>
-              <button className="bg-pink text-[20px] text-white text-sm px-8 py-4 rounded-full hover:opacity-90 transition">View</button>
+              <button className="bg-pink text-[20px] text-white text-sm px-8 py-4 rounded-full hover:opacity-90 transition">
+                View
+              </button>
             </motion.div>
           ))}
         </div>
@@ -73,23 +42,25 @@ export default function Collections() {
         {/* Arrows and dots */}
         <div className="flex items-center justify-center gap-10 mt-12 px-10">
           <button
-            onClick={handlePrev}
+            onClick={onPrev}
             className="p-2 border border-pink rounded-full hover:bg-pink hover:text-white transition"
           >
             <ChevronLeft size={20} />
           </button>
 
           <div className="flex gap-3">
-            {[0, 1].map((idx) => (
+            {collections.map((_, idx) => (
               <div
                 key={idx}
-                className={`w-3 h-3 rounded-full ${currentIndex === idx ? 'bg-pink' : 'bg-gray-300'}`}
+                className={`w-3 h-3 rounded-full ${
+                  currentIndex === idx ? "bg-pink" : "bg-gray-300"
+                }`}
               />
             ))}
           </div>
 
           <button
-            onClick={handleNext}
+            onClick={onNext}
             className="p-2 border border-pink rounded-full hover:bg-pink hover:text-white transition"
           >
             <ChevronRight size={20} />

@@ -1,13 +1,23 @@
-import { useState } from 'react';
 import { Search, Menu, X } from 'lucide-react';
-import LoginModal from './Login'; 
-import SignupModal from './Signup';
+import LoginPresenter from '@presenters/LoginPresenter';
+import SignupPresenter from '@presenters/SignupPresenter';
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false); // Mobile menu
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
-
+export default function Header({
+  user,
+  isOpen,
+  isLoginOpen,
+  isSignupOpen,
+  navLinkClass,
+  openLogin,
+  openSignup,
+  closeLogin,
+  closeSignup,
+  toggleMenu,
+  closeMenu,
+  onLogin,
+  onSignup,
+  onLogout,
+}) {
   return (
     <>
       <header className="flex justify-between items-center h-[100px] sticky top-0 bg-white z-50 w-full">
@@ -17,109 +27,104 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center font-sans mr-4 md:mr-5 lg:mr-10 space-x-2 md:space-x-10 lg:space-x-20 text-xl md:text-base lg:text-xl">
-          <a href="#hero" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition">
-            Home
-          </a>
-          <a href="#products" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition">
-            Products
-          </a>
-          <a href="#testimonials" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition">
-            Testimonial
-          </a>
-          <a href="#contact" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition">
-            Contact Us
-          </a>
-          <div className="flex items-center space-x-4 ml-10">
+          <a href="#hero" className={navLinkClass('hero')}>Home</a>
+          <a href="#products" className={navLinkClass('products')}>Products</a>
+          <a href="#testimonials" className={navLinkClass('testimonials')}>Testimonial</a>
+          <a href="#contact" className={navLinkClass('contact')}>Contact Us</a>
+
+          {user ? (
             <button
-              onClick={() => setIsLoginOpen(true)}
-              className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md"
+              onClick={onLogout}
+              className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md ml-10"
             >
-              Sign In
+              Logout
             </button>
-            <button
-              onClick={() => setIsSignupOpen(true)}
-              className="bg-skpink text-[15px] text-white font-semibold hover:bg-pink-600 transition px-4 py-2 rounded-md"
-            >
-              Sign Up
-            </button>
-          </div>
+          ) : (
+            <div className="flex items-center space-x-4 ml-10">
+              <button
+                onClick={openLogin}
+                className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={openSignup}
+                className="bg-skpink text-[15px] text-white font-semibold hover:bg-pink-600 transition px-4 py-2 rounded-md"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
         </nav>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden z-50" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? (
-            <X className="w-8 h-8 text-skpink" />
-          ) : (
-            <Menu className="w-8 h-8 text-skpink" />
-          )}
+        <button className="md:hidden z-50" onClick={toggleMenu}>
+          {isOpen ? <X className="w-8 h-8 text-skpink" /> : <Menu className="w-8 h-8 text-skpink" />}
         </button>
 
         {/* Mobile Navigation Menu */}
         {isOpen && (
           <div className="absolute top-[121px] ml-20 w-full bg-white shadow-md flex flex-col items-start px-6 py-4 space-y-4 text-base font-sans md:hidden">
-            <a href="#hero" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition" onClick={() => setIsOpen(false)}>
-              Home
-            </a>
-            <a href="#products" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition" onClick={() => setIsOpen(false)}>
-              Products
-            </a>
-            <a href="#testimonials" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition" onClick={() => setIsOpen(false)}>
-              Testimonial
-            </a>
-            <a href="#contact" className="text-black font-normal hover:font-semibold hover:text-skpink hover:underline transition" onClick={() => setIsOpen(false)}>
-              Contact Us
-            </a>
+            <a href="#hero" className={navLinkClass('hero')} onClick={closeMenu}>Home</a>
+            <a href="#products" className={navLinkClass('products')} onClick={closeMenu}>Products</a>
+            <a href="#testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</a>
+            <a href="#contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</a>
             <Search className="w-5 h-5 cursor-pointer hover:text-skpink transition" />
-            {/* Login dan Signup di mobile juga */}
-            <button
-              onClick={() => {
-                setIsLoginOpen(true);
-                setIsOpen(false);
-              }}
-              className="w-full text-center text-black font-semibold hover:text-skpink transition border border-skpink rounded-md px-4 py-2"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => {
-                setIsSignupOpen(true);
-                setIsOpen(false);
-              }}
-              className="w-full text-center bg-skpink text-white font-semibold hover:bg-pink-600 transition rounded-md px-4 py-2"
-            >
-              Sign Up
-            </button>
+
+            {user ? (
+              <button
+                onClick={() => { onLogout(); closeMenu(); }}
+                className="w-full text-center text-black font-semibold hover:text-skpink transition border border-skpink rounded-md px-4 py-2"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => { openLogin(); closeMenu(); }}
+                  className="w-full text-center text-black font-semibold hover:text-skpink transition border border-skpink rounded-md px-4 py-2"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => { openSignup(); closeMenu(); }}
+                  className="w-full text-center bg-skpink text-white font-semibold hover:bg-pink-600 transition rounded-md px-4 py-2"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
         )}
       </header>
 
       {/* Modals */}
       {isLoginOpen && (
-        <LoginModal
+        <LoginPresenter
           isOpen={isLoginOpen}
-          onClose={() => setIsLoginOpen(false)}
+          onClose={closeLogin}
           onLogin={(data) => {
-            console.log('Login data:', data);
-            setIsLoginOpen(false);
+            onLogin(data);
+            closeLogin();
           }}
-            onOpenSignup={() => {
-            setIsLoginOpen(false);
-            setIsSignupOpen(true);
+          onOpenSignup={() => {
+            closeLogin();
+            openSignup();
           }}
         />
       )}
 
       {isSignupOpen && (
-        <SignupModal
+        <SignupPresenter
           isOpen={isSignupOpen}
-          onClose={() => setIsSignupOpen(false)}
+          onClose={closeSignup}
           onSignup={(data) => {
-            console.log('Signup data:', data);
-            setIsSignupOpen(false);
+            onSignup(data);
+            closeSignup();
           }}
-            onOpenLogin={() => {
-            setIsSignupOpen(false);
-            setIsLoginOpen(true);
+          onOpenLogin={() => {
+            closeSignup();
+            openLogin();
           }}
         />
       )}

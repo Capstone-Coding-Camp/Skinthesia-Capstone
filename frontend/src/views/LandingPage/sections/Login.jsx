@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { User, Lock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function LoginModal({ isOpen, onClose, onLogin, onOpenSignup }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+export default function LoginModal({ isOpen, onClose, onOpenSignup, presenter }) {
+  const { email, password, error, setEmail, setPassword, handleSubmit, resetForm } = presenter;
   const modalRef = useRef(null);
   const firstFocusableRef = useRef(null);
   const lastFocusableRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
+
     const focusableElementsString = `
       a[href], area[href], input:not([disabled]),
       select:not([disabled]), textarea:not([disabled]),
@@ -47,30 +46,8 @@ export default function LoginModal({ isOpen, onClose, onLogin, onOpenSignup }) {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    if (!isOpen) {
-      setEmail('');
-      setPassword('');
-      setError('');
-    }
-  }, [isOpen]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setError('');
-    if (!email || !password) {
-      setError('All fields are required.');
-      return;
-    }
-    if (!email.includes('@')) {
-      setError('Invalid email format.');
-      return;
-    }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.');
-      return;
-    }
-    onLogin({ email, password });
-  }
+    if (!isOpen) resetForm();
+  }, [isOpen, resetForm]);
 
   return (
     <AnimatePresence>
@@ -94,9 +71,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onOpenSignup }) {
             ref={modalRef}
           >
             <h2 id="login-modal-title" className="text-2xl font-semibold mb-4">Login</h2>
-            <p id="login-modal-desc" className="mb-6 text-gray-600">
-              Enter your email and password to log in.
-            </p>
+            <p id="login-modal-desc" className="mb-6 text-gray-600">Enter your email and password to log in.</p>
             <form onSubmit={handleSubmit} noValidate>
               <label htmlFor="login-email" className="block mb-2 font-medium">Email</label>
               <div className="relative">
@@ -106,7 +81,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onOpenSignup }) {
                   id="login-email"
                   className="w-full border border-gray-300 rounded px-10 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-skpink"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -119,7 +94,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onOpenSignup }) {
                   id="login-password"
                   className="w-full border border-gray-300 rounded px-10 py-2 mb-16 focus:outline-none focus:ring-2 focus:ring-skpink"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>

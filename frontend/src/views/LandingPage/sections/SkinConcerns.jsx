@@ -1,56 +1,7 @@
-import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const skinConcerns = [
-  {
-    title: "Dry Skin",
-    desc: "Description",
-    image: "/images/skin-concern-dry-skin.png",
-  },
-  {
-    title: "Oily skin",
-    desc: "Description",
-    image: "/images/skin-concern-oily-skin.png",
-  },
-  {
-    title: "Acne skin",
-    desc: "Description",
-    image: "/images/skin-concern-acne-skin.png",
-  },
-  {
-    title: "Dull skin",
-    desc: "Description",
-    image: "/images/skin-concern-dull-skin.png",
-  },
-  {
-    title: "Inflamed skin",
-    desc: "Description",
-    image: "/images/skin-concern-inflamed-skin.png",
-  },
-  {
-    title: "Blackhead",
-    desc: "Description",
-    image: "/images/skin-concern-blackhead.png",
-  },
-];
-
-const SkinConcerns = () => {
-  const [index, setIndex] = useState(0);
-  const visibleCards = 4;
-
-  const next = () => {
-    if (index + visibleCards < skinConcerns.length) {
-      setIndex(index + 1);
-    }
-  };
-
-  const prev = () => {
-    if (index > 0) {
-      setIndex(index - 1);
-    }
-  };
-
+export default function SkinConcernsView({ skinConcerns, index, visibleCards, onNext, onPrev }) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
@@ -64,7 +15,7 @@ const SkinConcerns = () => {
       <div className="relative">
         {/* Arrow left */}
         <button
-          onClick={prev}
+          onClick={onPrev}
           className="absolute z-10 left-0 md:left-4 lg:left-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 border border-skpink"
         >
           <FaChevronLeft />
@@ -93,9 +44,7 @@ const SkinConcerns = () => {
                     alt={item.title}
                     className="rounded-lg w-full h-[263px] object-cover mb-5"
                   />
-                  <h3 className="font-semibold text-left">
-                    Complaint: {item.title}
-                  </h3>
+                  <h3 className="font-semibold text-left">Complaint: {item.title}</h3>
                   <p className="text-sm mb-5 text-left">{item.desc}</p>
                   <a
                     href="#"
@@ -111,7 +60,7 @@ const SkinConcerns = () => {
 
         {/* Arrow right */}
         <button
-          onClick={next}
+          onClick={onNext}
           className="absolute z-10 right-0 md:right-4 lg:right-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 border border-skpink"
         >
           <FaChevronRight />
@@ -119,6 +68,4 @@ const SkinConcerns = () => {
       </div>
     </motion.section>
   );
-};
-
-export default SkinConcerns;
+}

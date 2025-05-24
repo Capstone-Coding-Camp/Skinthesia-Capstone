@@ -1,23 +1,21 @@
-import Header from './sections/Header';
 import HeroSection from './sections/HeroSection';
-import BestSellers from './sections/BestSellers';
-import SkinConcerns from './sections/SkinConcerns';
+import BestSellersPresenter from '@presenters/BestSellersPresenter';
+import SkinConcernsPresenter from '@presenters/SkinConcernsPresenter';
+import CollectionsPresenter from '@presenters/CollectionsPresenter';
 import ProductsSections from './sections/ProductsSections';
-import Collections from './sections/Collections';
 import Testimonials from './sections/Testimonials';
-import Footer from './sections/Footer';
+import FooterPresenter from '../../presenters/FooterPresenter';
 
-export default function LandingPage() {
+export default function LandingPage({ user }) {
   return (
     <div className="bg-white text-gray-800">
-      <Header />
-      <HeroSection />
-      <BestSellers />
-      <SkinConcerns />
+      <HeroSection user={user}/>
+      <BestSellersPresenter />
+      <SkinConcernsPresenter />
       <ProductsSections />
-      <Collections />
+      <CollectionsPresenter />
       <Testimonials />
-      <Footer />
+      <FooterPresenter />
     </div>
   );
 }

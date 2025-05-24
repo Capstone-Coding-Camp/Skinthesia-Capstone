@@ -1,7 +1,5 @@
-import LandingPage from './views/LandingPage/LandingPage';
+import AppRoutes from '@routes/route';
 
-function App() {
-  return <LandingPage />;
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App;

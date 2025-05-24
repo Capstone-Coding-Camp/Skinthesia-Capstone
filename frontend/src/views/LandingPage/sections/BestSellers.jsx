@@ -1,33 +1,6 @@
 import { motion } from "framer-motion";
 
-const bestSellers = [
-  {
-    label: "Facial Wash",
-    image: "/images/best-seller-facial-wash.png",
-  },
-  {
-    label: "Toner",
-    image: "/images/best-seller-toner.png",
-  },
-  {
-    label: "Essense",
-    image: "/images/best-seller-essence.png",
-  },
-  {
-    label: "Serum",
-    image: "/images/best-seller-serum.png",
-  },
-  {
-    label: "Moisturizer",
-    image: "/images/best-seller-moisturizer.png",
-  },
-  {
-    label: "Sunscreen",
-    image: "/images/best-seller-sunscreen.png",
-  },
-];
-
-const BestSellers = () => {
+const BestSellers = ({ items }) => {
   return (
     <motion.section
       id="best-sellers"
@@ -46,7 +19,7 @@ const BestSellers = () => {
       </motion.h2>
 
       <div className="grid grid-cols-2 md:px-16 lg:px-32 md:grid-cols-3 lg:grid-cols-6 gap-12">
-        {bestSellers.map((item, index) => (
+        {items.map((item, index) => (
           <motion.div
             key={item.label}
             initial={{ opacity: 0, y: 30 }}

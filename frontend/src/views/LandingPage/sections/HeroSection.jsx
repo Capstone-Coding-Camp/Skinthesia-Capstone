@@ -1,7 +1,10 @@
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import useHeroPresenter from '@presenters/hooks/useHeroPresenter';
 
-export default function HeroSection() {
+export default function HeroSection({ user }) {
+  const { handleSkinAnalysisClick } = useHeroPresenter(user);
+
   return (
     <section className="relative bg-white mt-5 lg:px-0 py-14 overflow-hidden" id="hero">
       {/* Bintang twinkle */}
@@ -37,7 +40,10 @@ export default function HeroSection() {
           <div className="w-full h-[2px] bg-black mb-10 md:mb-20 max-w-xl" />
 
           <div className="flex gap-6 md:gap-10 flex-wrap">
-            <button className="bg-pink text-white font-serif text-lg sm:text-xl md:text-2xl font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:opacity-90 transition flex items-center gap-2">
+            <button
+              onClick={handleSkinAnalysisClick}
+              className="bg-pink text-white font-serif text-lg sm:text-xl md:text-2xl font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:opacity-90 transition flex items-center gap-2"
+            >
               Skin Analysis <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
             </button>
 
