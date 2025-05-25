@@ -1,6 +1,7 @@
 import { Search, Menu, X } from 'lucide-react';
-import LoginPresenter from '@presenters/LoginPresenter';
-import SignupPresenter from '@presenters/SignupPresenter';
+import { Link, useLocation } from 'react-router-dom';
+import LoginView from '@views/LandingPage/sections/Login';
+import SignupView from '@views/LandingPage/sections/Signup';
 
 export default function Header({
   user,
@@ -18,23 +19,40 @@ export default function Header({
   onSignup,
   onLogout,
 }) {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
+
   return (
     <>
       <header className="flex justify-between items-center h-[100px] sticky top-0 bg-white z-50 w-full">
         <div className="text-skpink text-3xl font-bold font-serif ml-6 md:ml-10 lg:ml-20">
-          Skinthesia
+          <Link to="/" onClick={closeMenu}>Skinthesia</Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center font-sans mr-4 md:mr-5 lg:mr-10 space-x-2 md:space-x-10 lg:space-x-20 text-xl md:text-base lg:text-xl">
-          <a href="#hero" className={navLinkClass('hero')}>Home</a>
-          <a href="#products" className={navLinkClass('products')}>Products</a>
-          <a href="#testimonials" className={navLinkClass('testimonials')}>Testimonial</a>
-          <a href="#contact" className={navLinkClass('contact')}>Contact Us</a>
+          {isLandingPage ? (
+            <>
+              <a href="#home" className={navLinkClass('home')} onClick={closeMenu}>Home</a>
+              <a href="#products" className={navLinkClass('products')} onClick={closeMenu}>Products</a>
+              <a href="#testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</a>
+              <a href="#contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</a>
+            </>
+          ) : (
+            <>
+              <Link to="/" className={navLinkClass('home')} onClick={closeMenu}>Home</Link>
+              <Link to="/products" className={navLinkClass('products')} onClick={closeMenu}>Products</Link>
+              <Link to="/testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</Link>
+              <Link to="/contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</Link>
+            </>
+          )}
 
           {user ? (
             <button
-              onClick={onLogout}
+              onClick={() => {
+                onLogout();
+                closeMenu();
+              }}
               className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md ml-10"
             >
               Logout
@@ -42,13 +60,19 @@ export default function Header({
           ) : (
             <div className="flex items-center space-x-4 ml-10">
               <button
-                onClick={openLogin}
+                onClick={() => {
+                  openLogin();
+                  closeMenu();
+                }}
                 className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md"
               >
                 Sign In
               </button>
               <button
-                onClick={openSignup}
+                onClick={() => {
+                  openSignup();
+                  closeMenu();
+                }}
                 className="bg-skpink text-[15px] text-white font-semibold hover:bg-pink-600 transition px-4 py-2 rounded-md"
               >
                 Sign Up
@@ -65,15 +89,30 @@ export default function Header({
         {/* Mobile Navigation Menu */}
         {isOpen && (
           <div className="absolute top-[121px] ml-20 w-full bg-white shadow-md flex flex-col items-start px-6 py-4 space-y-4 text-base font-sans md:hidden">
-            <a href="#hero" className={navLinkClass('hero')} onClick={closeMenu}>Home</a>
-            <a href="#products" className={navLinkClass('products')} onClick={closeMenu}>Products</a>
-            <a href="#testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</a>
-            <a href="#contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</a>
+            {isLandingPage ? (
+              <>
+                <a href="#home" className={navLinkClass('home')} onClick={closeMenu}>Home</a>
+                <a href="#products" className={navLinkClass('products')} onClick={closeMenu}>Products</a>
+                <a href="#testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</a>
+                <a href="#contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</a>
+              </>
+            ) : (
+              <>
+                <Link to="/" className={navLinkClass('home')} onClick={closeMenu}>Home</Link>
+                <Link to="/products" className={navLinkClass('products')} onClick={closeMenu}>Products</Link>
+                <Link to="/testimonials" className={navLinkClass('testimonials')} onClick={closeMenu}>Testimonial</Link>
+                <Link to="/contact" className={navLinkClass('contact')} onClick={closeMenu}>Contact Us</Link>
+              </>
+            )}
+
             <Search className="w-5 h-5 cursor-pointer hover:text-skpink transition" />
 
             {user ? (
               <button
-                onClick={() => { onLogout(); closeMenu(); }}
+                onClick={() => {
+                  onLogout();
+                  closeMenu();
+                }}
                 className="w-full text-center text-black font-semibold hover:text-skpink transition border border-skpink rounded-md px-4 py-2"
               >
                 Logout
@@ -81,13 +120,19 @@ export default function Header({
             ) : (
               <>
                 <button
-                  onClick={() => { openLogin(); closeMenu(); }}
+                  onClick={() => {
+                    openLogin();
+                    closeMenu();
+                  }}
                   className="w-full text-center text-black font-semibold hover:text-skpink transition border border-skpink rounded-md px-4 py-2"
                 >
                   Sign In
                 </button>
                 <button
-                  onClick={() => { openSignup(); closeMenu(); }}
+                  onClick={() => {
+                    openSignup();
+                    closeMenu();
+                  }}
                   className="w-full text-center bg-skpink text-white font-semibold hover:bg-pink-600 transition rounded-md px-4 py-2"
                 >
                   Sign Up
@@ -100,12 +145,11 @@ export default function Header({
 
       {/* Modals */}
       {isLoginOpen && (
-        <LoginPresenter
-          isOpen={isLoginOpen}
+        <LoginView
           onClose={closeLogin}
           onLogin={(data) => {
-            onLogin(data);
-            closeLogin();
+            const success = onLogin(data);
+            if (success) closeLogin();
           }}
           onOpenSignup={() => {
             closeLogin();
@@ -115,12 +159,11 @@ export default function Header({
       )}
 
       {isSignupOpen && (
-        <SignupPresenter
-          isOpen={isSignupOpen}
+        <SignupView
           onClose={closeSignup}
           onSignup={(data) => {
-            onSignup(data);
-            closeSignup();
+            const success = onSignup(data);
+            if (success) closeSignup();
           }}
           onOpenLogin={() => {
             closeSignup();

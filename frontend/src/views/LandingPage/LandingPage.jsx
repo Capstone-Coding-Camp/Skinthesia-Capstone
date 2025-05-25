@@ -2,7 +2,7 @@ import HeroSection from './sections/HeroSection';
 import BestSellersPresenter from '@presenters/BestSellersPresenter';
 import SkinConcernsPresenter from '@presenters/SkinConcernsPresenter';
 import CollectionsPresenter from '@presenters/CollectionsPresenter';
-import ProductsSections from './sections/ProductsSections';
+import ProductsPresenter from '@presenters/ProductsPresenter';
 import Testimonials from './sections/Testimonials';
 import FooterPresenter from '../../presenters/FooterPresenter';
 
@@ -12,7 +12,7 @@ export default function LandingPage({ user }) {
       <HeroSection user={user}/>
       <BestSellersPresenter />
       <SkinConcernsPresenter />
-      <ProductsSections />
+      <ProductsPresenter />
       <CollectionsPresenter />
       <Testimonials />
       <FooterPresenter />

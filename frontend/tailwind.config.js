@@ -7,6 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
+        "primary-pink": "oklch(0.6571 0.1568 22.82)",
+        "secondary-pink": "oklch(0.7295 0.1091 20.75)",
+        "tersier-pink": "oklch(0.7589 0.1029 20.48)",
         skpink: '#E16463',
         pink : '#EB9695',
       },

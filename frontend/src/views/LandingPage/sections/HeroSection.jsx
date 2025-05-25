@@ -6,9 +6,9 @@ export default function HeroSection({ user }) {
   const { handleSkinAnalysisClick } = useHeroPresenter(user);
 
   return (
-    <section className="relative bg-white mt-5 lg:px-0 py-14 overflow-hidden" id="hero">
+    <section className="relative bg-white pt-[164px] mt-[-100px] overflow-hidden" id="hero">
       {/* Bintang twinkle */}
-      <div className="absolute top-4 sm:top-0 ml-32 sm:ml-24; text-skpink text-3xl sm:text-4xl lg:text-6xl animate-twinkle">✦</div>
+      <div className="absolute top-[145px] sm:top-[145px] left-[200px] transform -translate-x-1/2 text-skpink text-4xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
       <div className="absolute bottom-[300px] sm:bottom-[300px] left-1/2 transform -translate-x-1/2 text-skpink text-2xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
       <div className="absolute bottom-[400px] sm:bottom-[400px] left-[55%] transform -translate-x-1/2 text-skpink text-xl sm:text-3xl lg:text-4xl animate-twinkle delay-[400ms]">✦</div>
 

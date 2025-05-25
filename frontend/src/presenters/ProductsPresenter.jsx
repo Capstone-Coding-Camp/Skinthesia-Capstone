@@ -1,4 +1,4 @@
-import ProductsSection from '@views/LandingPage/sections/ProductsSection';
+import ProductsSection from '@views/LandingPage/sections/ProductsSections';
 import { useProductsPresenter } from '@presenters/hooks/useProductsPresenter';
 
 export default function ProductsPresenter() {

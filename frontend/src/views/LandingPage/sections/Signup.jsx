@@ -1,143 +1,107 @@
-import { User, Lock } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-export default function SignupModal({
-  isOpen,
-  modalRef,
-  email,
-  password,
-  confirmPassword,
-  error,
-  setEmail,
-  setPassword,
-  setConfirmPassword,
-  handleSubmit,
-  onClose,
-  onOpenLogin,
-}) {
+export default function SignupView({ onSignup, onOpenLogin, error, onClose }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSignup({ email, password, confirmPassword });
+  }
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          key="signup-backdrop"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    <motion.div 
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div 
+        className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        <button
+          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
           onClick={onClose}
+          aria-label="Close modal"
         >
-          <motion.div
-            key="signup-modal"
-            ref={modalRef}
-            initial={{ scale: 0.95, opacity: 0, y: -30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: -30 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="signup-modal-title"
-            aria-describedby="signup-modal-desc"
+          ✕
+        </button>
+
+        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Signup Form">
+          <h2 className="text-2xl font-semibold py-2 mb-8 text-center">Signup</h2>
+          {error && <p className="text-red-600 text-center">{error}</p>}
+
+          <div>
+            <label htmlFor="signup-email" className="block mb-1 text-black">Email</label>
+            <div className="relative">
+              <FaUser className="absolute left-3 top-3 text-gray-400" />
+              <input
+                id="signup-email"
+                type="email"
+                placeholder="janedoe@example.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="signup-password" className="block mb-1 text-black">Password</label>
+            <div className="relative">
+              <FaLock className="absolute left-3 top-3 text-gray-400" />
+              <input
+                id="signup-password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="signup-confirm" className="block mb-1 text-black">Confirm Password</label>
+            <div className="relative">
+              <FaLock className="absolute left-3 top-3 text-gray-400" />
+              <input
+                id="signup-confirm"
+                type="password"
+                placeholder="••••••••"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                required
+                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-skpink text-white py-2 rounded hover:bg-pink-600 transition"
           >
-            <h2 id="signup-modal-title" className="text-2xl font-semibold mb-4">
-              Sign Up
-            </h2>
-            <p id="signup-modal-desc" className="mb-6 text-gray-600">
-              Create a new account by entering your email and password.
-            </p>
+            Signup
+          </button>
 
-            <form onSubmit={handleSubmit} noValidate>
-              <label htmlFor="signup-email" className="block mb-2 font-medium">
-                Email
-              </label>
-              <div className="relative">
-                <User className="w-5 h-5 text-gray-400 absolute left-3 top-[20px] -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="email"
-                  id="signup-email"
-                  name="email"
-                  autoComplete="email"
-                  className="w-full border border-gray-300 rounded px-10 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-skpink"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <label htmlFor="signup-password" className="block mb-2 font-medium">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-[20px] -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="password"
-                  id="signup-password"
-                  name="password"
-                  autoComplete="new-password"
-                  className="w-full border border-gray-300 rounded px-10 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-skpink"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <label htmlFor="signup-confirm-password" className="block mb-2 font-medium">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-[20px] -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="password"
-                  id="signup-confirm-password"
-                  name="confirmPassword"
-                  autoComplete="new-password"
-                  className="w-full border border-gray-300 rounded px-10 py-2 mb-16 focus:outline-none focus:ring-2 focus:ring-skpink"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              {error && (
-                <p className="text-red-600 mb-4" role="alert" aria-live="assertive">
-                  {error}
-                </p>
-              )}
-
-              <div className="flex justify-between items-center">
-                <button
-                  type="submit"
-                  className="bg-skpink text-white px-4 py-2 rounded hover:bg-pink-600 transition"
-                >
-                  Sign Up
-                </button>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition"
-                >
-                  Close
-                </button>
-              </div>
-
-              <p className="mt-4 text-center text-sm text-gray-600">
-                Already have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    onClose();
-                    onOpenLogin();
-                  }}
-                  className="text-skpink font-semibold hover:underline focus:outline-none"
-                >
-                  Sign In
-                </button>
-              </p>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <button
+            type="button"
+            onClick={onOpenLogin}
+            className="w-full text-center text-skpink underline"
+          >
+            Already have an account? Login
+          </button>
+        </form>
+      </motion.div>
+    </motion.div>
   );
 }

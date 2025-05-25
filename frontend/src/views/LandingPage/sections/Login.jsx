@@ -1,130 +1,91 @@
-import { useRef, useEffect } from 'react';
-import { User, Lock } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-export default function LoginModal({ isOpen, onClose, onOpenSignup, presenter }) {
-  const { email, password, error, setEmail, setPassword, handleSubmit, resetForm } = presenter;
-  const modalRef = useRef(null);
-  const firstFocusableRef = useRef(null);
-  const lastFocusableRef = useRef(null);
+export default function LoginView({ onLogin, onOpenSignup, error, onClose }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const focusableElementsString = `
-      a[href], area[href], input:not([disabled]),
-      select:not([disabled]), textarea:not([disabled]),
-      button:not([disabled]), iframe, object, embed,
-      *[tabindex]:not([tabindex="-1"]), *[contenteditable=true]
-    `;
-    const modalNode = modalRef.current;
-    const focusableElements = modalNode.querySelectorAll(focusableElementsString);
-    if (focusableElements.length) {
-      firstFocusableRef.current = focusableElements[0];
-      lastFocusableRef.current = focusableElements[focusableElements.length - 1];
-      firstFocusableRef.current.focus();
-    }
-
-    function handleKeyDown(e) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        onClose();
-      }
-      if (e.key === 'Tab') {
-        if (e.shiftKey && document.activeElement === firstFocusableRef.current) {
-          e.preventDefault();
-          lastFocusableRef.current.focus();
-        } else if (!e.shiftKey && document.activeElement === lastFocusableRef.current) {
-          e.preventDefault();
-          firstFocusableRef.current.focus();
-        }
-      }
-    }
-
-    modalNode.addEventListener('keydown', handleKeyDown);
-    return () => modalNode.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
-
-  useEffect(() => {
-    if (!isOpen) resetForm();
-  }, [isOpen, resetForm]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin({ email, password });
+  }
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="login-modal-title"
-          aria-describedby="login-modal-desc"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    <motion.div 
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Modal dengan animasi scale + fade */}
+      <motion.div 
+        className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        <button
+          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
           onClick={onClose}
+          aria-label="Close modal"
         >
-          <motion.div
-            key="login-modal"
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -50, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative"
-            onClick={e => e.stopPropagation()}
-            ref={modalRef}
+          ✕
+        </button>
+
+        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Login Form">
+          <h2 className="text-2xl py-4 mb-8 font-semibold text-center">Sign In</h2>
+          {error && <p className="text-red-600 text-center">{error}</p>}
+
+          <div>
+            <label htmlFor="login-email" className="block mb-1 text-black">Email</label>
+            <div className="relative">
+              <FaUser className="absolute left-3 top-3 text-gray-400" />
+              <input
+                id="login-email"
+                type="email"
+                placeholder="skinthesia@example.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className="w-full pl-10 pr-3 mb-2 py-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="login-password" className="block mb-1 text-black">Password</label>
+            <div className="relative">
+              <FaLock className="absolute left-3 top-3 text-gray-400" />
+              <input
+                id="login-password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-skpink text-white py-2 rounded hover:bg-pink transition"
           >
-            <h2 id="login-modal-title" className="text-2xl font-semibold mb-4">Login</h2>
-            <p id="login-modal-desc" className="mb-6 text-gray-600">Enter your email and password to log in.</p>
-            <form onSubmit={handleSubmit} noValidate>
-              <label htmlFor="login-email" className="block mb-2 font-medium">Email</label>
-              <div className="relative">
-                <User className="w-5 h-5 text-gray-400 absolute left-3 top-[20px] -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="email"
-                  id="login-email"
-                  className="w-full border border-gray-300 rounded px-10 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-skpink"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+            Sign In
+          </button>
 
-              <label htmlFor="login-password" className="block mb-2 font-medium">Password</label>
-              <div className="relative">
-                <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-[20px] -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="password"
-                  id="login-password"
-                  className="w-full border border-gray-300 rounded px-10 py-2 mb-16 focus:outline-none focus:ring-2 focus:ring-skpink"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              {error && (
-                <p className="text-red-600 mb-4" role="alert" aria-live="assertive">{error}</p>
-              )}
-
-              <div className="flex justify-between items-center">
-                <button type="submit" className="bg-skpink text-white px-4 py-2 rounded hover:bg-pink-600 transition">Login</button>
-                <button type="button" onClick={onClose} className="text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition">Close</button>
-              </div>
-
-              <p className="mt-4 text-center text-sm text-gray-600">
-                Don't have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    onClose();
-                    onOpenSignup();
-                  }}
-                  className="text-skpink font-semibold hover:underline focus:outline-none"
-                >
-                  Sign Up
-                </button>
-              </p>
-            </form>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+          <button
+            type="button"
+            onClick={onOpenSignup}
+            className="w-full text-center text-skpink underline"
+          >
+            Don't have an account? Signup
+          </button>
+        </form>
+      </motion.div>
+    </motion.div>
   );
 }

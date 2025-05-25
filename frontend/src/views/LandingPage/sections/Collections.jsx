@@ -49,7 +49,7 @@ export default function CollectionsView({ collections, currentIndex, onPrev, onN
           </button>
 
           <div className="flex gap-3">
-            {collections.map((_, idx) => (
+            {[0, 1].map((idx) => (
               <div
                 key={idx}
                 className={`w-3 h-3 rounded-full ${

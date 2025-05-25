@@ -1,20 +1,25 @@
-import { useState } from 'react';
-import useActiveSection from '@presenters/hooks/useActiveSection';
+import { useState } from "react";
+import useActiveSection from "@presenters/hooks/useActiveSection";
 
 export default function useHeaderPresenter(user, onLogin, onSignup, onLogout) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
-  const activeSection = useActiveSection(['hero', 'products', 'testimonials', 'contact']);
+  const activeSection = useActiveSection([
+    "hero",
+    "products",
+    "testimonials",
+    "contact",
+  ]);
 
   const navLinkClass = (id) =>
-    `${activeSection === id
-      ? 'text-skpink font-semibold underline'
-      : 'text-black font-normal'
+    `${
+      activeSection === id
+        ? "text-skpink font-semibold underline"
+        : "text-black font-normal"
     } hover:text-skpink hover:underline transition`;
 
-  // Handlers for modal open/close
   const openLogin = () => {
     setIsLoginOpen(true);
     setIsSignupOpen(false);
@@ -30,7 +35,7 @@ export default function useHeaderPresenter(user, onLogin, onSignup, onLogout) {
   const closeLogin = () => setIsLoginOpen(false);
   const closeSignup = () => setIsSignupOpen(false);
 
-  const toggleMenu = () => setIsOpen(prev => !prev);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
   return {
