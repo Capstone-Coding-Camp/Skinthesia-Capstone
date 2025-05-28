@@ -49,7 +49,7 @@ export default function LoginView({ onLogin, onOpenSignup, error, onClose }) {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-3 mb-2 py-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+                className="w-full pl-10 pr-3 mb-2 py-2 border border-pink rounded-sm focus:outline-hidden focus:ring-2 focus:ring-skpink"
               />
             </div>
           </div>
@@ -65,14 +65,14 @@ export default function LoginView({ onLogin, onOpenSignup, error, onClose }) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded-sm focus:outline-hidden focus:ring-2 focus:ring-skpink"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-skpink text-white py-2 rounded hover:bg-pink transition"
+            className="w-full bg-skpink text-white py-2 rounded-sm hover:bg-pink transition"
           >
             Sign In
           </button>

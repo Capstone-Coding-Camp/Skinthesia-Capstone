@@ -30,9 +30,9 @@ export default function SkinFormView({
     <div className="bg-white py-10 font-sans min-h-screen relative overflow-hidden">
       {/* Background twinkle stars */}
       <div className="absolute top-[100px] right-[500px] text-skpink text-3xl animate-twinkle delay-[0ms]">✦</div>
-      <div className="absolute top-[200px] right-[300px] text-skpink text-3xl animate-twinkle delay-[300ms]">✦</div>
-      <div className="absolute top-[100px] left-[500px]  text-skpink text-3xl animate-twinkle delay-[600ms]">✦</div>
-      <div className="absolute top-[250px] left-[300px]  text-skpink text-3xl animate-twinkle delay-[900ms]">✦</div>
+      <div className="absolute top-[200px] right-[300px] text-skpink text-3xl animate-twinkle delay-300">✦</div>
+      <div className="absolute top-[100px] left-[500px]  text-skpink text-3xl animate-twinkle delay-600">✦</div>
+      <div className="absolute top-[250px] left-[300px]  text-skpink text-3xl animate-twinkle delay-900">✦</div>
 
       {/* Header */}
       <header className="text-center mb-8">

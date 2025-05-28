@@ -49,7 +49,7 @@ export default function SignupView({ onSignup, onOpenLogin, error, onClose }) {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded-sm focus:outline-hidden focus:ring-2 focus:ring-skpink"
               />
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function SignupView({ onSignup, onOpenLogin, error, onClose }) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+                className="w-full pl-10 pr-3 py-2 mb-2 border border-pink rounded-sm focus:outline-hidden focus:ring-2 focus:ring-skpink"
               />
             </div>
           </div>
@@ -81,14 +81,14 @@ export default function SignupView({ onSignup, onOpenLogin, error, onClose }) {
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded focus:outline-none focus:ring-2 focus:ring-skpink"
+                className="w-full pl-10 pr-3 py-2 mb-8 border border-pink rounded-sm focus:outline-hidden focus:ring-2 focus:ring-skpink"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-skpink text-white py-2 rounded hover:bg-pink-600 transition"
+            className="w-full bg-skpink text-white py-2 rounded-sm hover:bg-pink-600 transition"
           >
             Signup
           </button>

@@ -17,7 +17,7 @@ export default function CollectionsView({ collections, currentIndex, onPrev, onN
           {collections.map((item, idx) => (
             <motion.div
               key={idx}
-              className="w-1/2 px-8 py-8 flex items-center gap-4 bg-white border border-pink rounded-xl shadow-sm"
+              className="w-1/2 px-8 py-8 flex items-center gap-4 bg-white border border-pink rounded-xl shadow-xs"
               whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}

@@ -16,7 +16,7 @@ export default function SkinConcernsView({ skinConcerns, index, visibleCards, on
         {/* Arrow left */}
         <button
           onClick={onPrev}
-          className="absolute z-10 left-0 md:left-4 lg:left-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 border border-skpink"
+          className="absolute z-10 left-0 md:left-4 lg:left-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink"
         >
           <FaChevronLeft />
         </button>
@@ -61,7 +61,7 @@ export default function SkinConcernsView({ skinConcerns, index, visibleCards, on
         {/* Arrow right */}
         <button
           onClick={onNext}
-          className="absolute z-10 right-0 md:right-4 lg:right-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 border border-skpink"
+          className="absolute z-10 right-0 md:right-4 lg:right-2 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink"
         >
           <FaChevronRight />
         </button>

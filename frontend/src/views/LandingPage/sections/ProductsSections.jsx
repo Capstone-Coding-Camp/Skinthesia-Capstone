@@ -9,7 +9,7 @@ export default function ProductsSection({ searchQuery, handleSearchChange }) {
           <input
             type="text"
             placeholder="Looking for a new product today?"
-            className="w-full px-5 py-4 pl-14 rounded-full text-black placeholder-gray-500 border border-transparent focus:border-skpink outline-none transition shadow-md"
+            className="w-full px-5 py-4 pl-14 rounded-full text-black placeholder-gray-500 border border-transparent focus:border-skpink outline-hidden transition shadow-md"
             value={searchQuery}
             onChange={handleSearchChange}
           />

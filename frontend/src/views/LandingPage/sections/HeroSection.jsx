@@ -10,7 +10,7 @@ export default function HeroSection({ user }) {
       {/* Bintang twinkle */}
       <div className="absolute top-[145px] sm:top-[145px] left-[200px] transform -translate-x-1/2 text-skpink text-4xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
       <div className="absolute bottom-[300px] sm:bottom-[300px] left-1/2 transform -translate-x-1/2 text-skpink text-2xl sm:text-4xl lg:text-5xl animate-twinkle delay-200">✦</div>
-      <div className="absolute bottom-[400px] sm:bottom-[400px] left-[55%] transform -translate-x-1/2 text-skpink text-xl sm:text-3xl lg:text-4xl animate-twinkle delay-[400ms]">✦</div>
+      <div className="absolute bottom-[400px] sm:bottom-[400px] left-[55%] transform -translate-x-1/2 text-skpink text-xl sm:text-3xl lg:text-4xl animate-twinkle delay-400">✦</div>
 
       <div className="max-w-8xl mb-[120px] px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center gap-20 md:gap-32 lg:gap-40">
         {/* Kiri: Teks */}
