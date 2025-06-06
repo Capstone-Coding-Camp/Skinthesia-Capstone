@@ -24,13 +24,13 @@ export default function Header({
 
   return (
     <>
-      <header className="flex justify-between items-center h-[100px] sticky top-0 bg-white z-50 w-full">
-        <div className="text-skpink text-3xl font-bold font-serif ml-6 md:ml-10 lg:ml-20">
+      <header className="flex justify-between items-center h-[100px] fixed top-0 bg-white/30 backdrop-blur-sm z-[500] w-full">
+        <div className="text-skpink text-3xl align-top font-bold font-serif ml-6 md:ml-10 lg:ml-14">
           <Link to="/" onClick={closeMenu}>Skinthesia</Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center font-sans mr-4 md:mr-5 lg:mr-10 space-x-2 md:space-x-10 lg:space-x-20 text-xl md:text-base lg:text-xl">
+        <nav className="hidden md:flex items-center font-sans mr-4 md:mr-5 lg:mr-10 space-x-2 md:space-x-6 lg:space-x-10 xl:space-x-16 text-xl md:text-base lg:text-xl">
           {isLandingPage ? (
             <>
               <a href="#home" className={navLinkClass('home')} onClick={closeMenu}>Home</a>
@@ -53,12 +53,12 @@ export default function Header({
                 onLogout();
                 closeMenu();
               }}
-              className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md ml-10"
+              className="text-black text-[15px] font-semibold hover:text-skpink transition px-4 py-2 border border-skpink rounded-md ml-4"
             >
               Logout
             </button>
           ) : (
-            <div className="flex items-center space-x-4 ml-10">
+            <div className="flex items-center space-x-4 md:ml-4 lg:ml-10">
               <button
                 onClick={() => {
                   openLogin();

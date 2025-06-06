@@ -8,8 +8,8 @@ import {
 
 const stepIcons = [
   <Droplets size={50} />,
-  <AlertCircle size={50} />,     
-  <Smile size={50} />,   
+  <AlertCircle size={50} />,
+  <Smile size={50} />,
   <PackageSearch size={50} />,
 ];
 
@@ -208,7 +208,7 @@ export default function SkinFormView({
           ) : (
             <button
               type="submit"
-              className="px-8 py-3 rounded-md font-bold bg-pink text-white bg-skpink border border-skpink hover:shadow-lg"
+              className="px-8 py-3 rounded-md font-bold text-white bg-skpink border border-skpink hover:shadow-lg"
             >
               SkinAnalysis
             </button>

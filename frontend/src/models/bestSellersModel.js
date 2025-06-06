@@ -1,27 +1,33 @@
 export const bestSellers = [
   {
+    "id": "best-facial-wash",
     label: "Facial Wash",
-    image: "/images/best-seller-facial-wash.png",
+    image: "/BestSeller/best-seller-facial-wash.png",
   },
   {
+    "id": "best-toner",
     label: "Toner",
-    image: "/images/best-seller-toner.png",
+    image: "/BestSeller/best-seller-toner.png",
   },
   {
+    "id": "best-essense",
     label: "Essense",
-    image: "/images/best-seller-essence.png",
+    image: "/BestSeller/best-seller-essence.png",
   },
   {
+    "id": "best-serum",
     label: "Serum",
-    image: "/images/best-seller-serum.png",
+    image: "/BestSeller/best-seller-serum.png",
   },
   {
+    "id": "best-moisturizer",
     label: "Moisturizer",
-    image: "/images/best-seller-moisturizer.png",
+    image: "/BestSeller/best-seller-moisturizer.png",
   },
   {
+    "id": "best-sunscreen",
     label: "Sunscreen",
-    image: "/images/best-seller-sunscreen.png",
+    image: "/BestSeller/best-seller-sunscreen.png",
   },
 ];
 

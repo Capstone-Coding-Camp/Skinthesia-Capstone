@@ -32,9 +32,9 @@ export default function CollectionsView({ collections, currentIndex, onPrev, onN
                 <h3 className="font-bold text-lg mb-5">{item.title}</h3>
                 <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
               </div>
-              <button className="bg-pink text-[20px] text-white text-sm px-8 py-4 rounded-full hover:opacity-90 transition">
+              <a href={ item.id === "morning-routine" ? "/morning-routine" : item.id === "night-recovery" ? "/night-recovery" : item.id === "acne-defense-kit" ? "/acne-defense-kit" : "/"} className="bg-pink text-[20px] text-white text-sm px-8 py-4 rounded-full hover:opacity-90 transition">
                 View
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>

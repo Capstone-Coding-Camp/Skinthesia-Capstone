@@ -18,7 +18,23 @@ const BestSellers = ({ items }) => {
         Best Sellers
       </motion.h2>
 
-      <div className="grid grid-cols-2 md:px-16 lg:px-32 md:grid-cols-3 lg:grid-cols-6 gap-12">
+      <a
+        href={
+          items.id === "best-facial-wash"
+          ? "/best-facial-wash"
+          : items.id === "best-toner"
+          ? "/best-toner"
+          : items.id === "best-essense"
+          ? "/best-essense"
+          : items.id === "best-serum"
+          ? "/best-serum"
+          : items.id === "best-moisturizer"
+          ? "/best-moisturizer"
+          : items.id === "best-sunscreen"
+          ? "/best-sunscreen"
+          : "/"
+        }
+        className="grid grid-cols-2 md:px-16 lg:px-32 md:grid-cols-3 lg:grid-cols-6 gap-12">
         {items.map((item, index) => (
           <motion.div
             key={item.label}
@@ -39,7 +55,7 @@ const BestSellers = ({ items }) => {
             </p>
           </motion.div>
         ))}
-      </div>
+      </a>
 
       {/* Garis dan bintang */}
       <div className="relative mt-24">
