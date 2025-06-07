@@ -1,22 +1,32 @@
 import { motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-export default function SkinConcernsView({ skinConcerns, index, visibleCards, onNext, onPrev }) {
+export default function SkinConcernsView({ skinConcerns, index, visibleCards, onNext, onPrev, isPrevDisabled, isNextDisabled }) {
+  const cardWidthPercent = 100 / visibleCards; //
+  const totalWidthPercent = (skinConcerns.length * 100) / visibleCards; //
+  const translateXPercent = (index * 100) / skinConcerns.length; //
+
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="p-8 mt-8 mb-14 md:mt-12 md:mb-20"
+      className="p-4 my-6 md:my-10"
     >
       <h2 className="text-4xl font-bold font-sans text-center mb-6 lg:mb-8">
         Top Picks for Your Skin Concerns
       </h2>
-      <div className="relative">
+      <div className="relative py-8">
         {/* Arrow left */}
         <button
           onClick={onPrev}
-          className="absolute z-10 left-0 md:left-4 lg:left-6 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink"
+          disabled={isPrevDisabled}
+          className={`absolute z-10 left-0 md:left-4 lg:left-6 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink transition ${
+            isPrevDisabled
+              ? "bg-gray-100 border-gray-300 cursor-not-allowed"
+              : "hover:bg-gray-200 hover:border-gray-400 cursor-pointer"
+          }`}
         >
           <FaChevronLeft />
         </button>
@@ -24,28 +34,31 @@ export default function SkinConcernsView({ skinConcerns, index, visibleCards, on
         {/* Carousel container */}
         <div className="overflow-hidden whitespace-nowrap mx-12 md:mx-16 lg:mx-20">
           <div
-            className="flex transition-transform duration-300"
+            className="flex transition-transform gap-4 duration-300"
             style={{
-              width: `${(skinConcerns.length / visibleCards) * 100}%`,
-              transform: `translateX(-${(index * 100) / skinConcerns.length}%)`,
+              width: `${totalWidthPercent}`,
+              transform: `translateX(-${translateXPercent}%)`,
             }}
           >
             {skinConcerns.map((item, i) => (
               <motion.div
                 key={i}
-                className="w-1/2 min-w-[240px] max-w-[280px]"
+                className="min-w-[240px] max-w-[280px] min-h-[450px] md:min-h-[450px] border-2 border-pink rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-2xl 2xl:rounded-3xl p-4"
+                style={{ width: `${cardWidthPercent}%` }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
               >
-                <div className="bg-white rounded-xl p-3">
+                <div className="bg-white flex min-h-[200px] max-h-[200px] rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-2xl 2xl:rounded-3xl">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="rounded-lg w-full h-[263px] object-cover mb-5"
+                    className="object-contain"
                   />
-                  <h3 className="font-semibold capitalized text-left">{item.title}</h3>
-                  <p className="text-sm mb-5 text-left">{item.desc}</p>
+                </div>
+                <div className="flex flex-wrap w-full justify-start items-center">
+                  <h3 className="font-bold text-wrap capitalized text-xl lg:text-2xl mt-4 mb-2 text-left">{item.title}</h3>
+                  <p className="text-sm w-full md:mb-4 mb-6 text-wrap text-left">{item.desc}</p>
                   <a
                     href={
                       item.id === "dry-skin-concern"
@@ -62,7 +75,7 @@ export default function SkinConcernsView({ skinConcerns, index, visibleCards, on
                         ? "/inflamed-skin"
                         : "/"
                     }
-                    className="text-sky-600 text-sm mt-1 underline inline-block bottom-0 fixed text-left w-full hover:font-bold"
+                    className="bg-pink text-[20px] text-white px-6 cursor-pointed py-2 bottom-3 rounded-full hover:opacity-90 transition my-4 inline-block fixed text-left"
                   >
                     View More
                   </a>
@@ -75,7 +88,12 @@ export default function SkinConcernsView({ skinConcerns, index, visibleCards, on
         {/* Arrow right */}
         <button
           onClick={onNext}
-          className="absolute z-10 right-0 md:right-4 lg:right-6 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink"
+          disabled={isNextDisabled}
+          className={`absolute z-10 right-0 md:right-4 lg:right-6 text-skpink top-1/2 -translate-y-1/2 bg-white rounded-full shadow-sm p-2 border border-skpink transition ${
+            isNextDisabled
+              ? "bg-gray-100 border-gray-300 cursor-not-allowed"
+              : "hover:bg-gray-200 hover:border-gray-400 cursor-pointer"
+          }`}
         >
           <FaChevronRight />
         </button>

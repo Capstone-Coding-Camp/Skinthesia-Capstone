@@ -1,16 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { collections } from "@models/collectionsModel";
 
 export default function useCollectionsPresenter() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(2);
+
+  useEffect(() => {
+    const updateVisibleCards = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setVisibleCards(1);
+      } else if (width < 1024) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(2); // bisa kamu ubah ke 3/4 jika diperlukan
+      }
+    };
+
+    updateVisibleCards();
+    window.addEventListener("resize", updateVisibleCards);
+    return () => window.removeEventListener("resize", updateVisibleCards);
+  }, []);
+
+  const maxIndex = collections.length - visibleCards;
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? collections.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === collections.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : prev));
   };
 
-  return { collections, currentIndex, handlePrev, handleNext };
+  const isPrevDisabled = currentIndex === 0;
+  const isNextDisabled = currentIndex >= maxIndex;
+
+  return {
+    collections,
+    currentIndex,
+    visibleCards,
+    handlePrev,
+    handleNext,
+    isPrevDisabled,
+    isNextDisabled,
+  };
 }

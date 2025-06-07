@@ -5,7 +5,7 @@ const BackToHomeButtonView = ({ isVisible, homeUrl = "/" }) => {
   const visibilityClass = isVisible ? '' : 'hidden'; // Mengontrol visibilitas dengan kelas Tailwind
 
   return (
-    <section id="backToHome" className={`fixed left-10 top-35 z-[9999] ${visibilityClass}`}>
+    <section id="backToHome" className={`fixed left-10 top-30 xl:top-35 z-[9999] ${visibilityClass}`}>
       <div className="relative w-[60px] h-[60px]">
         <div className="absolute inset-0 rounded-full bg-tersier-pink"></div>
         <a href={homeUrl} className="absolute inset-1 bg-white rounded-full shadow-md flex justify-center items-center">

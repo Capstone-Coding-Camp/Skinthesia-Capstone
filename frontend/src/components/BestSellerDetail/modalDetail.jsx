@@ -42,11 +42,11 @@ const ModalView = ({ isOpen, product, onCloseModal }) => {
   return (
     <section
       id="modal"
-      className="fixed inset-0 z-[1000] overflow-y-auto bg-grey-400/30 backdrop-blur-sm flex items-center justify-center"
+      className="fixed inset-0 z-[1000] overflow-y-auto bg-gray-400/30 backdrop-blur-sm flex items-center justify-center"
     >
       <div className="relative z-[2000] bg-white rounded-xl p-12 w-[80vw] md:w-[75vw]">
         <button
-          className="absolute top-4 right-4 cursor-pointer text-primary-pink text-4xl md:text-5xl pb-[7px] md:pb-[12px] rounded-lg hover:text-tersier-pink transition-colors border-2 border-primary-pink w-10 h-10 flex items-center justify-center"
+          className="absolute top-4 right-4 cursor-pointer text-primary-pink text-2xl md:text-4xl lg:text-5xl pb-[7px] md:pb-[12px] rounded-lg hover:text-tersier-pink transition-colors border-2 border-primary-pink w-10 h-10 flex items-center justify-center"
           onClick={onCloseModal}
         >
           &times;

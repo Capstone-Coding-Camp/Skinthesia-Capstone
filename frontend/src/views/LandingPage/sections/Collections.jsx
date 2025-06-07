@@ -1,23 +1,36 @@
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-export default function CollectionsView({ collections, currentIndex, onPrev, onNext }) {
+export default function CollectionsView({
+  collections,
+  currentIndex,
+  visibleCards,
+  onPrev,
+  onNext,
+  isPrevDisabled,
+  isNextDisabled,
+}) {
+  const cardWidthPercent = 100 / visibleCards;
+  const totalWidthPercent = (collections.length * 100) / visibleCards;
+  const translateXPercent = (currentIndex * 100) / collections.length;
+
   return (
-    <section className="py-12 bg-white">
-      <h2 className="text-4xl font-bold mb-[60px] text-center">Collections</h2>
+    <section className="py-8 bg-white">
+      <h2 className="text-4xl font-bold py-6 md:py-10 text-center">Collections</h2>
 
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden mx-6 p-6 lg:mx-12">
         <div
-          className="flex px-8 sm:px-8 transition-transform duration-500 ease-in-out gap-10 mb-20"
+          className="flex transition-transform duration-500 ease-in-out gap-10 mb-12"
           style={{
-            transform: `translateX(-${currentIndex * 50}%)`,
-            width: `${collections.length * 50}%`,
+            width: `${totalWidthPercent}%`,
+            transform: `translateX(-${translateXPercent}%)`,
           }}
         >
           {collections.map((item, idx) => (
             <motion.div
               key={idx}
-              className="w-1/2 px-8 py-8 flex items-center gap-4 bg-white border border-pink rounded-xl shadow-xs"
+              className="px-4  min-w-[455px] py-4 flex items-center gap-4 bg-white border border-pink rounded-xl shadow-xs"
+              style={{ width: `${cardWidthPercent}%` }}
               whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -32,24 +45,41 @@ export default function CollectionsView({ collections, currentIndex, onPrev, onN
                 <h3 className="font-bold text-lg mb-5">{item.title}</h3>
                 <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
               </div>
-              <a href={ item.id === "morning-routine" ? "/morning-routine" : item.id === "night-recovery" ? "/night-recovery" : item.id === "acne-defense-kit" ? "/acne-defense-kit" : "/"} className="bg-pink text-[20px] text-white text-sm px-8 py-4 rounded-full hover:opacity-90 transition">
+              <a
+                href={
+                  item.id === "morning-routine"
+                    ? "/morning-routine"
+                    : item.id === "night-recovery"
+                    ? "/night-recovery"
+                    : item.id === "acne-defense-kit"
+                    ? "/acne-defense-kit"
+                    : "/"
+                }
+                className="bg-pink text-[20px] text-white px-6 py-2 rounded-full hover:opacity-90 transition cursor-pointed"
+              >
                 View
               </a>
             </motion.div>
           ))}
         </div>
 
-        {/* Arrows and dots */}
-        <div className="flex items-center justify-center gap-10 mt-12 px-10">
+        {/* Arrow controls */}
+        <div className="flex items-center justify-center gap-10 p-6 md:p-10">
           <button
             onClick={onPrev}
-            className="p-2 border border-pink rounded-full hover:bg-pink hover:text-white transition"
+            disabled={isPrevDisabled}
+            className={`p-2 border rounded-full text-pink transition ${
+              isPrevDisabled
+                ? "bg-gray-100 border-gray-300 cursor-not-allowed"
+                : "hover:bg-gray-200 hover:border-gray-400 cursor-pointed border-pink"
+            }`}
           >
-            <ChevronLeft size={20} />
+            <FaChevronLeft size={20} />
           </button>
 
+          {/* Dots */}
           <div className="flex gap-3">
-            {[0, 1].map((idx) => (
+            {[...Array(Math.ceil(collections.length / visibleCards)).keys()].map((idx) => (
               <div
                 key={idx}
                 className={`w-3 h-3 rounded-full ${
@@ -61,15 +91,20 @@ export default function CollectionsView({ collections, currentIndex, onPrev, onN
 
           <button
             onClick={onNext}
-            className="p-2 border border-pink rounded-full hover:bg-pink hover:text-white transition"
+            disabled={isNextDisabled}
+            className={`p-2 border border-pink rounded-full transition ${
+              isNextDisabled
+                ? "bg-gray-100 border-gray-300 cursor-not-allowed"
+                : "hover:bg-gray-200 hover:border-gray-400 cursor-pointed border-pink"
+            }`}
           >
-            <ChevronRight size={20} />
+            <FaChevronRight size={20} />
           </button>
         </div>
       </div>
 
       {/* Garis dan bintang */}
-      <div className="relative mt-20">
+      <div className="relative mt-2">
         <div className="h-[2px] bg-skpink w-full" />
         <motion.div
           className="absolute left-20 -top-5 text-skpink text-3xl sm:text-4xl lg:text-4xl"

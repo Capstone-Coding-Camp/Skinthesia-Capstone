@@ -3,7 +3,7 @@ import BestSellersPresenter from '@presenters/BestSellersPresenter';
 import SkinConcernsPresenter from '@presenters/SkinConcernsPresenter';
 import CollectionsPresenter from '@presenters/CollectionsPresenter';
 import ProductsPresenter from '@presenters/ProductsPresenter';
-import Testimonials from './sections/Testimonials';
+import TestimonialsPresenter from '@presenters/TestimonialPresenter';
 import FooterPresenter from '@presenters/FooterPresenter';
 import BackToHomeButtonPresenter from '@presenters/BackToHomePresenter'
 
@@ -15,7 +15,7 @@ export default function LandingPage({ user }) {
       <SkinConcernsPresenter />
       <ProductsPresenter />
       <CollectionsPresenter />
-      <Testimonials />
+      <TestimonialsPresenter />
       <FooterPresenter />
       <BackToHomeButtonPresenter />
     </div>
