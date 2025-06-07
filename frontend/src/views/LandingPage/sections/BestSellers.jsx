@@ -1,6 +1,38 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const BestSellers = ({ items }) => {
+  // Compute rawData for debugging and validation
+  const rawData = items.map(item => ({
+    id: item.id
+  }));
+  useEffect(() => {
+    console.log("Raw Data :", rawData);
+    if(rawData.length === 0) {
+      throw new Error('No data found for your Best Seller Product');
+    }
+  }, [rawData]);
+
+  // Helper to get the correct link for each item
+  const getItemLink = (id) => {
+    switch (id) {
+      case "best-facial-wash":
+        return "/best-facial-wash";
+      case "best-toner":
+        return "/best-toner";
+      case "best-essense":
+        return "/best-essense";
+      case "best-serum":
+        return "/best-serum";
+      case "best-moisturizer":
+        return "/best-moisturizer";
+      case "best-sunscreen":
+        return "/best-sunscreen";
+      default:
+        return "/";
+    }
+  };
+
   return (
     <motion.section
       id="best-sellers"
@@ -19,44 +51,33 @@ const BestSellers = ({ items }) => {
       </motion.h2>
 
       <div className="flex justify-center self-center py-8 m-auto">
-        <a
-          href={
-            items.id === "best-facial-wash"
-            ? "/best-facial-wash"
-            : items.id === "best-toner"
-            ? "/best-toner"
-            : items.id === "best-essense"
-            ? "/best-essense"
-            : items.id === "best-serum"
-            ? "/best-serum"
-            : items.id === "best-moisturizer"
-            ? "/best-moisturizer"
-            : items.id === "best-sunscreen"
-            ? "/best-sunscreen"
-            : "/"
-          }
+        <div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 lg:gap-6 xl:gap-12 w-[90vw] p-2">
           {items.map((item, index) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white duration-300 text-center"
+            <a
+              key={item.id}
+              href={getItemLink(item.id)}
             >
-              <motion.img
-                src={item.image}
-                alt={item.label}
-                className="w-full h-auto object-contain mb-3"
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              />
-              <p className="font-semibold font-sans text-lg md:text-xl hover:underline hover:text-skpink transition duration-300">
-                {item.label}
-              </p>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white duration-300 text-center"
+              >
+                <motion.img
+                  src={item.image}
+                  alt={item.label}
+                  className="w-full h-auto object-contain mb-3"
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                />
+                <p className="font-semibold font-sans text-lg md:text-xl hover:underline hover:text-skpink transition duration-300">
+                  {item.label}
+                </p>
+              </motion.div>
+            </a>
           ))}
-        </a>
+        </div>
       </div>
 
       {/* Garis dan bintang */}

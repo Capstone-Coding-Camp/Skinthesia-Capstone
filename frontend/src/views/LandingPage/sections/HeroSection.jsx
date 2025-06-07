@@ -170,7 +170,7 @@ export default function HeroSection({ user }) {
         </div>
       </div>
       {/* Marquee */}
-      <div className="w-full bg-pink text-white my-8 overflow-hidden">
+      <div className="w-full bg-pink text-white py-4 mt-12 overflow-hidden">
         <Marquee text="AI-Powered Recommendations" />
       </div>
 
