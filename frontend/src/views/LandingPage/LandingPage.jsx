@@ -5,7 +5,6 @@ import CollectionsPresenter from '@presenters/CollectionsPresenter';
 import ProductsPresenter from '@presenters/ProductsPresenter';
 import TestimonialsPresenter from '@presenters/TestimonialPresenter';
 import FooterPresenter from '@presenters/FooterPresenter';
-import BackToHomeButtonPresenter from '@presenters/BackToHomePresenter'
 
 export default function LandingPage({ user }) {
   return (
@@ -17,7 +16,6 @@ export default function LandingPage({ user }) {
       <CollectionsPresenter />
       <TestimonialsPresenter />
       <FooterPresenter />
-      <BackToHomeButtonPresenter />
     </div>
   );
 }
